@@ -6,17 +6,28 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import nz.ac.auckland.recipe.PersistenceManager;
+
 @ApplicationPath("/services")
 public class RecipeApplication extends Application {
 
 	private Set<Object> singletons = new HashSet<Object>();
-
+	private Set<Class<?>> classes = new HashSet<Class<?>>();
+	
 	public RecipeApplication() {
-		singletons.add(new RecipeApplication());
+		RecipeResource resource = new RecipeResource();
+		singletons.add(PersistenceManager.instance());
+		classes.add(RecipeResource.class); 
 	}
 
 	@Override
 	public Set<Object> getSingletons() {
 		return singletons;
 	}
+	
+	@Override
+	   public Set<Class<?>> getClasses()
+	   {
+	      return classes;
+	   }
 }

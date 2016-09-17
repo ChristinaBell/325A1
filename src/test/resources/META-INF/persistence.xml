@@ -16,7 +16,7 @@
 		<!-- Classes which are to be mapped and therefore persistent. -->
 		<class>nz.ac.auckland.recipe.domain.Recipe</class>
 		<class>nz.ac.auckland.recipe.domain.Baker</class>
-		<class>nz.ac.auckland.recipe.domain.Category</class>
+		<class>nz.ac.auckland.recipe.domain.category</class>
 
 		<properties>
 			<!-- Configure the data source. In this case the embedded H2 database 

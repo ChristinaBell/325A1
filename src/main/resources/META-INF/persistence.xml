@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
@@ -18,8 +16,7 @@
 		<!-- Classes which are to be mapped and therefore persistent. -->
 		<class>nz.ac.auckland.recipe.domain.Recipe</class>
 		<class>nz.ac.auckland.recipe.domain.Baker</class>
-		<class>nz.ac.auckland.recipe.PersistenceManager</class>
-		<class>nz.ac.auckland.recipe.Review</class>
+		<class>nz.ac.auckland.recipe.domain.Category</class>
 
 		<properties>
 			<!-- Configure the data source. In this case the embedded H2 database 

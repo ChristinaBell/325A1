@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Access(AccessType.FIELD)
+//@Access(AccessType.FIELD)
 public class Recipe {
 	@Id
 	private Long _id; 
@@ -21,14 +21,13 @@ public class Recipe {
 	@ManyToOne
 	@JoinTable(name="RECIPE CATEGORY", joinColumns =
 		@JoinColumn( name="RECIPE ID" ), inverseJoinColumns = 
-			@JoinColumn( nullable=false ) )
+			@JoinColumn( nullable=false ))
 	private Category _category; 
 	
 	@ElementCollection
 	private Set<Review> _reviews; 
 
 	public Recipe(){}
-	
 	 	
 	public Long getId(){
 		return _id; 

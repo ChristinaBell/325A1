@@ -8,5 +8,11 @@ public class Review {
 
 	@Column(nullable=false, name="CONTENT")
 	private String _content; 
+	
+	protected Review(){
+		
+	}
+	
+	//getters and setters 
 
 }

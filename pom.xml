@@ -36,14 +36,34 @@
 			<artifactId>resteasy-servlet-initializer</artifactId>
 			<version>3.0.12.Final</version>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.3.0.Final</version>
+		</dependency>
+
+
 		<!-- Joda date/time library -->
-        <dependency>
+		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.7</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.31</version>
+		</dependency>
 
 		<!-- Hibernate JPA provider. -->
 		<dependency>
@@ -64,6 +84,13 @@
 			<version>1.7.12</version>
 		</dependency>
 
+		<!-- Equals builder -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
 		<!-- JUnit. -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -75,8 +102,9 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.187</version>
+			<version>1.4.192</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
