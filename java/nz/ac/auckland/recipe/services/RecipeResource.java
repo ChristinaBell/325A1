@@ -107,32 +107,62 @@ public class RecipeResource {
 	/**
 	 * Attempts to retrieve a collection of recipes. 
 	 * 
-	 * @param start the start index within the database of recipes.
-	 * 
-	 * @param size the number of recipes to return.
-	 * 
-	 * @return a StreamingOutput object that writes out up to a maximum of size 
-	 *         recipes in XML form.  
+	 * @param author - within the database of recipes.
+	 *  
+	 * @return a StreamingOutput object that writes out up recipes in XML form.  
 	 */
-//	@GET
-//	@Produces("application/xml")
-//	public StreamingOutput retrieveRecipes(@QueryParam("start") int start, @QueryParam("size") int size) {
-//		final List<Recipe> recipes = new ArrayList<Recipe>();
-//
-//		for (int i = start; i <= size; i++) {
-//			Recipe recipe = _recipeDB.get(i);
-//			if (recipe != null) {
-//				recipes.add(recipe);
-//			}
-//		}
-//
-//		return new StreamingOutput() {
-//			public void write(OutputStream outputStream) throws IOException,
-//					WebApplicationException {
-//				outputRecipes(outputStream, recipes);
-//			}
-//		};
-//	}
+	@GET
+	@Produces("application/xml")
+	public StreamingOutput retrieveRecipes(@QueryParam("author") Baker author) {
+		_logger.info("Retrieving recipes by author")
+		final List<Recipe> recipes = new ArrayList<Recipe>();
+		int length = _recipeDB.size(); 
+				
+		for (int i = length; i <= length; i++) {
+			Recipe recipe = _recipeDB.get(i);
+			if ((recipe != null) && recipe.getAuthor().equals(author){
+				recipes.add(recipe);
+			}
+		}
+
+		return new StreamingOutput() {
+			public void write(OutputStream outputStream) throws IOException,
+					WebApplicationException {
+				outputRecipes(outputStream, recipes);
+			}
+		};
+	}
+	
+	/**
+	 * Attempts to retrieve a collection of recipes by category. 
+	 * 
+	 * @param category - within the database of recipes.
+	 *  
+	 * @return a StreamingOutput object that writes out up recipes in XML form.  
+	 */
+	@GET
+	@Produces("application/xml")
+	public StreamingOutput retrieveRecipes(@QueryParam("category") Category category) {
+		_logger.info("Retrieving recipes by category")
+		final List<Recipe> recipes = new ArrayList<Recipe>();
+		int length = _recipeDB.size(); 
+				
+		for (int i = length; i <= length; i++) {
+			Recipe recipe = _recipeDB.get(i);
+			if ((recipe != null) && recipe.getCategory().equals(category){
+				recipes.add(recipe);
+			}
+		}
+
+		return new StreamingOutput() {
+			public void write(OutputStream outputStream) throws IOException,
+					WebApplicationException {
+				outputRecipes(outputStream, recipes);
+			}
+		};
+	}
+	
+	
 
 	/**
 	 * Creates a new recipe.
@@ -145,23 +175,23 @@ public class RecipeResource {
 	 *         response code is 201. The JAX-RS run-time processes the Response
 	 *         object when preparing the HTTP response message.
 	 */
-//	@POST
-//	@Produces("application/xml")
-//	public Response createRecipe(InputStream is) {
-//		// Read an XML representation of a new Recipe. Note that with JAX-RS, 
-//		// any non-annotated parameter in a Resource method is assumed to hold 
-//		// the HTTP request's message body.
-//		Recipe recipe = readRecipe(is);
-//
-//		// Generate an ID for the new Recipe, and store it in memory.
-//		recipe.setId(_idCounter.incrementAndGet());
-//		_recipeDB.put(recipe.getId(), recipe);
-//
-//		_logger.debug("Created recipe with id: " + recipe.getId());
-//
-//		return Response.created(URI.create("/recipes/" + recipe.getId()))
-//				.build();
-//	}
+	@POST
+	@Produces("application/xml")
+	public Response createRecipe(InputStream is) {
+		// Read an XML representation of a new Recipe. Note that with JAX-RS, 
+		// any non-annotated parameter in a Resource method is assumed to hold 
+		// the HTTP request's message body.
+		Recipe recipe = readRecipe(is);
+
+		// Generate an ID for the new Recipe, and store it in memory.
+		recipe.setId(_idCounter.incrementAndGet());
+		_recipeDB.put(recipe.getId(), recipe);
+
+		_logger.debug("Created recipe with id: " + recipe.getId());
+
+		return Response.created(URI.create("/recipes/" + recipe.getId()))
+				.build();
+	}
 
 	/**
 	 * Attempts to update an existing recipe. If the specified recipe is
@@ -173,20 +203,20 @@ public class RecipeResource {
 	 * @param is the InputStream used to store an XML representation of the
 	 * new state for the recipe.
 	 */
-//	@PUT
-//	@Path("{id}")
-//	@Consumes("application/xml")
-//	public void updateRecipe(@PathParam("id") int id, InputStream is) {
-//		Recipe update = readRecipe(is);
-//		Recipe current = _recipeDB.get(id);
-//		if (current == null) {
-//			throw new WebApplicationException(Response.Status.NOT_FOUND);
-//		}
-//
-//		// Update the details of the Recipe to be updated.
-//		current.setContent(update.getContent());
-//		current.setCreationTimeStamp(update.getCreationTimeStamp());
-//	}
+	@PUT
+	@Path("{id}")
+	@Consumes("application/xml")
+	public void updateRecipe(@PathParam("id") int id, InputStream is) {
+		Recipe update = readRecipe(is);
+		Recipe current = _recipeDB.get(id);
+		if (current == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
+
+		// Update the details of the Recipe to be updated.
+		current.setContent(update.getContent());
+		current.setCreationTimeStamp(update.getCreationTimeStamp());
+	}
 
 	/**
 	 * Attempts to delete an existing recipe. If the specified recipe isn't 
@@ -195,18 +225,18 @@ public class RecipeResource {
 	 * 
 	 * @param id the unique id of the recipe to delete.
 	 */
-//	@DELETE
-//	@Path("{id}")
-//	public void deleteRecipe(@PathParam("id") int id) {
-//		Recipe current = _recipeDB.get(id);
-//		if (current == null) {
-//			throw new WebApplicationException(Response.Status.NOT_FOUND);
-//		}
-//
-//		// Remove the Recipe.
-//		_recipeDB.remove(id);
-//		_logger.info("Deleted recipe with ID: " + id);
-//	}
+	@DELETE
+	@Path("{id}")
+	public void deleteRecipe(@PathParam("id") int id) {
+		Recipe current = _recipeDB.get(id);
+		if (current == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
+
+		// Remove the Recipe.
+		_recipeDB.remove(id);
+		_logger.info("Deleted recipe with ID: " + id);
+	}
 
 	/**
 	 * Helper method to generate an XML representation of a particular recipe.

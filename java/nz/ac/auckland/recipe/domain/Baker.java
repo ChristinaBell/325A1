@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import nz.ac.auckland.recipe.services.Wishlist;
+
 @Entity
 public class Baker {
 
@@ -16,6 +18,9 @@ public class Baker {
 	
 	@OneToMany(mappedBy = "_author")
 	private Set<Recipe> _recipes; 
+	
+	@OneToMany(mappedBy = "_owner")
+	private Set<Wishlist> _wishlists;  
 	
 	public Baker(String username, String lastname, String firstname, Set<Recipe> recipes) {
 		_username = username;

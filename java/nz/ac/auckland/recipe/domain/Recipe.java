@@ -27,6 +27,7 @@ public class Recipe {
 	@ElementCollection
 	private Set<Review> _reviews; 
 
+	// Does this need to be protected for JPA? 
 	public Recipe(){}
 	 	
 	public Long getId(){

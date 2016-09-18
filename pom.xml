@@ -5,8 +5,12 @@
 	<artifactId>325_A1_cbel296</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<properties>
-	</properties>
+    <packaging>jar</packaging>
+
+	<!-- Specify the servlet container port to listen on for incoming requests. -->
+    <properties>
+        <servlet.container.port>10000</servlet.container.port>
+    </properties>
 
 	<dependencies>
 
@@ -42,7 +46,7 @@
 			<groupId>org.jboss.logging</groupId>
 			<artifactId>jboss-logging</artifactId>
 			<version>3.3.0.Final</version>
-		</dependency>
+		</dependency> 
 
 
 		<!-- Joda date/time library -->
