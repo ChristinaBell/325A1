@@ -1,30 +1,44 @@
 package nz.ac.auckland.recipe.domain;
 
+import BakerAdapter;
+import XmlJavaTypeAdapter;
+
 import org.joda.time.DateTime;
 
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 
 
 @Entity
-//@Access(AccessType.FIELD)
+@XmlRootElement(name="recipe")
+@Access(AccessType.FIELD)
 public class Recipe {
 	@Id
+	@XmlAttribute(name="id")
 	private Long _id; 
+	@XmlAttribute(name="content")
 	private String _content; 
+	@XmlAttribute(name="creation-time-stamp")
 	private DateTime _creationTimeStamp; 
 	
 	@ManyToOne 
+	@XmlAttribute(name="author")
+	@XmlJavaTypeAdapter(value=BakerAdapter.class)
 	private Baker _author; 
 	
 	@ManyToOne
+	@XmlAttribute(name="category")
+//	@XmlJavaTypeAdapter(value=CategoryAdapter.class)
 	@JoinTable(name="RECIPE CATEGORY", joinColumns =
 		@JoinColumn( name="RECIPE ID" ), inverseJoinColumns = 
 			@JoinColumn( nullable=false ))
 	private Category _category; 
 	
 	@ElementCollection
+//	@XmlJavaTypeAdapter(value=ReviewAdapter.class)
+	@XmlAttribute(name="reviews")
 	private Set<Review> _reviews; 
 
 	// Does this need to be protected for JPA? 

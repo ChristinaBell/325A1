@@ -8,16 +8,26 @@ import nz.ac.auckland.recipe.domain.*;
 
 // Recipes that the user wishes to make 
 @Entity
+@XmlRootElement(name="wishlist")
+@Access(AccessType.FIELD)
 public class Wishlist {
 	
 	@Id
+	@XmlAttribute("id")
 	public Long _id; 
 	
 	@ManyToOne
+	@XmlAttribute("owner")
+	@XmlJavaTypeAdapter(value=BakerAdapter.class)
 	private Baker _owner; 
 	
-	private String _name; 
-	private String _description; 
+	@XmlAttribute("name")
+	private String _name;
+	
+	@XmlAttribute("description")
+	private String _description;
+	
+	@XmlAttribute("wishlist-recipes")
 	private Set<Recipe> _wishlistRecipes; 
 
 	public Long getId(){

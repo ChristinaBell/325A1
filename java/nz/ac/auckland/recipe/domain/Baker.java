@@ -2,23 +2,34 @@ package nz.ac.auckland.recipe.domain;
 
 import java.util.Set;
 
+import javax.xml.bind.annotation.*;
 import javax.persistence.*;
 
 import nz.ac.auckland.recipe.services.Wishlist;
 
 @Entity
+@XmlRootElement(name="baker")
+@Access(AccessType.FIELD)
 public class Baker {
-
+	
 	@Id
+	@XmlAttribute(name="id")
 	private Long _id;
 	
+	@XmlAttribute(name="username")
 	private String _username;
+	@XmlAttribute(name="last-name")
 	private String _lastname;
+	@XmlAttribute(name="first-name")
 	private String _firstname;
 	
+	@XmlAttribute(name="recipes")
+	@XmlJavaTypeAdapter(value=RecipeAdapter.class)
 	@OneToMany(mappedBy = "_author")
 	private Set<Recipe> _recipes; 
 	
+	@XmlAttribute(name="wishlists")
+	@XmlJavaTypeAdapter(value=WishlistAdapter.class)
 	@OneToMany(mappedBy = "_owner")
 	private Set<Wishlist> _wishlists;  
 	

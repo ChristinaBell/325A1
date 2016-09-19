@@ -1,16 +1,23 @@
 package nz.ac.auckland.recipe.domain;
 
 import java.util.Set;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 
 @Entity
+@Access(AccessType.FIELD)
 public class Category {
 	
 	@Id
+	@XmlAttribute(name="id")
 	private Long _id; 
+	
+	@XmlAttribute(name="category-name")
 	private String _categoryName;
 	
-	@OneToMany(mappedBy="_category") 
+	@OneToMany(mappedBy="_category")
+	@XmlAttribute(name="recipes")
 	private Set<Recipe> _recipes;
 
 	
