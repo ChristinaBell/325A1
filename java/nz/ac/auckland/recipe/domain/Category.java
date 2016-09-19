@@ -45,4 +45,9 @@ public class Category {
 		return _recipes; 
 	}
 	
+	@Override 
+	public String toString(){
+		return _id.toString() + "-" + _categoryName 
+	}
+	
 }

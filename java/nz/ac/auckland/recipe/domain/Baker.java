@@ -18,10 +18,7 @@ public class Baker {
 	
 	@XmlAttribute(name="username")
 	private String _username;
-	@XmlAttribute(name="last-name")
-	private String _lastname;
-	@XmlAttribute(name="first-name")
-	private String _firstname;
+
 	
 	@XmlAttribute(name="recipes")
 	@XmlJavaTypeAdapter(value=RecipeAdapter.class)
@@ -35,8 +32,6 @@ public class Baker {
 	
 	public Baker(String username, String lastname, String firstname, Set<Recipe> recipes) {
 		_username = username;
-		_lastname = lastname;
-		_firstname = firstname;
 		_recipes = recipes; 
 	}
 	

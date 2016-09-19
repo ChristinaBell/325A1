@@ -1,4 +1,5 @@
-package nz.ac.auckland.parolee.jaxb;
+
+package nz.ac.auckland.recipe.jaxb;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -10,23 +11,23 @@ import org.joda.time.DateTime;
  * DateTime instances.
  *
  */
-public class RecipeAdapter extends XmlAdapter<String, Recipe> {
+public class ReviewAdapter extends XmlAdapter<String, Review> {
 
 	@Override
-	public Recipe unmarshal(String recipeAsString) throws Exception {
-		if(recipeAsString == null) {
+	public Review unmarshal(String reviewAsString) throws Exception {
+		if(reviewAsString == null) {
 			return null;
 		}
 		
-		return new Recipe(recipeAsString);
+		return new Review(reviewAsString);
 	}
 
 	@Override
-	public String marshal(Recipe recipe) throws Exception {
-		if(recipe == null) {
+	public String marshal(Review review) throws Exception {
+		if(review == null) {
 			return null;
 		}
 		
-		return recipe.toString();
+		return review.toString();
 	}
 }

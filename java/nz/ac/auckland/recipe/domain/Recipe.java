@@ -18,6 +18,8 @@ public class Recipe {
 	@Id
 	@XmlAttribute(name="id")
 	private Long _id; 
+	@XmlAttribute(name="name")
+	private String _name; 
 	@XmlAttribute(name="content")
 	private String _content; 
 	@XmlAttribute(name="creation-time-stamp")
@@ -30,14 +32,14 @@ public class Recipe {
 	
 	@ManyToOne
 	@XmlAttribute(name="category")
-//	@XmlJavaTypeAdapter(value=CategoryAdapter.class)
+	@XmlJavaTypeAdapter(value=CategoryAdapter.class)
 	@JoinTable(name="RECIPE CATEGORY", joinColumns =
 		@JoinColumn( name="RECIPE ID" ), inverseJoinColumns = 
 			@JoinColumn( nullable=false ))
 	private Category _category; 
 	
 	@ElementCollection
-//	@XmlJavaTypeAdapter(value=ReviewAdapter.class)
+	@XmlJavaTypeAdapter(value=ReviewAdapter.class)
 	@XmlAttribute(name="reviews")
 	private Set<Review> _reviews; 
 
@@ -54,6 +56,14 @@ public class Recipe {
 	
 	public void setId(int id) {
 		_id = Long.valueOf(id); 		
+	}
+	
+	public String getName(){
+		return _name;
+	}
+	
+	public void setContent(String name){
+		_name = name; 
 	}
 	
 	public String getContent(){
@@ -96,6 +106,10 @@ public class Recipe {
 		return _reviews; 
 	}
 
+	@Override
+	public String toString(){
+		return _id + "-" + name + "-" + content + "-" + _category.toString() 
+	}
 	
 	
 }
