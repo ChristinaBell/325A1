@@ -2,6 +2,8 @@ package nz.ac.auckland.recipe.jaxb;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import nz.ac.auckland.recipe.domain.Recipe;
+
 import org.joda.time.DateTime;
 
 /**
@@ -17,6 +19,7 @@ public class RecipeAdapter extends XmlAdapter<String, Recipe> {
 		if(recipeAsString == null) {
 			return null;
 		}
+		String[] args = recipeAsString.split(","); 
 		
 		return new Recipe(recipeAsString);
 	}

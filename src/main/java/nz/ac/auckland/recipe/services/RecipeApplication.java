@@ -18,6 +18,7 @@ public class RecipeApplication extends Application {
 		RecipeResource resource = new RecipeResource();
 		singletons.add(PersistenceManager.instance());
 		classes.add(RecipeResource.class); 
+		classes.add(JavaMarshaller.class);
 	}
 
 	@Override

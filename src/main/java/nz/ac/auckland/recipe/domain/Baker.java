@@ -1,16 +1,21 @@
 package nz.ac.auckland.recipe.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.persistence.*;
 
-import nz.ac.auckland.recipe.services.Wishlist;
+import nz.ac.auckland.recipe.domain.*;
+import nz.ac.auckland.recipe.jaxb.*;
 
+
+@SuppressWarnings("serial")
 @Entity
 @XmlRootElement(name="baker")
 @Access(AccessType.FIELD)
-public class Baker {
+public class Baker implements Serializable{
 	
 	@Id
 	@XmlAttribute(name="id")
@@ -18,18 +23,17 @@ public class Baker {
 	
 	@XmlAttribute(name="username")
 	private String _username;
-
 	
 	@XmlAttribute(name="recipes")
 	@XmlJavaTypeAdapter(value=RecipeAdapter.class)
 	@OneToMany(mappedBy = "_author")
 	private Set<Recipe> _recipes; 
 	
-	@XmlAttribute(name="wishlists")
-	@XmlJavaTypeAdapter(value=WishlistAdapter.class)
-	@OneToMany(mappedBy = "_owner")
-	private Set<Wishlist> _wishlists;  
-	
+//	@XmlAttribute(name="wishlist")
+//	@XmlJavaTypeAdapter(value=WishlistAdapter.class)
+//	@OneToOne
+//	private Wishlist _wishlist;  
+		
 	public Baker(String username, String lastname, String firstname, Set<Recipe> recipes) {
 		_username = username;
 		_recipes = recipes; 
@@ -37,8 +41,6 @@ public class Baker {
 	
 	public Baker(String username, String lastname, String firstname) {
 		_username = username;
-		_lastname = lastname;
-		_firstname = firstname;
 	}
 	
 	public Baker(String username) {
@@ -63,19 +65,7 @@ public class Baker {
 		_username = name; 
 	}
 	
-	public String getLastname() {
-		return _lastname;
-	}
 	
-	public void setLastname(String name){
-		_lastname = name; 
-	}
 	
-	public String getFirstname() {
-		return _firstname;
-	}
 	
-	public void setFirstname(String name){
-		_firstname = name; 
-	}
 }

@@ -17,6 +17,7 @@
 		<class>nz.ac.auckland.recipe.domain.Recipe</class>
 		<class>nz.ac.auckland.recipe.domain.Baker</class>
 		<class>nz.ac.auckland.recipe.domain.category</class>
+	<!-- 	<class>nz.ac.auckland.recipe.domain.Wishlist</class> -->
 
 		<properties>
 			<!-- Configure the data source. In this case the embedded H2 database 

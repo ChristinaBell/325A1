@@ -2,6 +2,8 @@ package nz.ac.auckland.recipe.jaxb;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import nz.ac.auckland.recipe.domain.Category;
+
 import org.joda.time.DateTime;
 
 /**
@@ -10,23 +12,23 @@ import org.joda.time.DateTime;
  * DateTime instances.
  *
  */
-public class DateTimeAdapter extends XmlAdapter<String, DateTime> {
+public class CategoryAdapter extends XmlAdapter<String, Category> {
 
 	@Override
-	public DateTime unmarshal(String dateTimeAsString) throws Exception {
-		if(dateTimeAsString == null) {
+	public Category unmarshal(String categoryAsString) throws Exception {
+		if(categoryAsString == null) {
 			return null;
 		}
 		
-		return new DateTime(dateTimeAsString);
+		return new Category(categoryAsString);
 	}
 
 	@Override
-	public String marshal(DateTime dateTime) throws Exception {
-		if(dateTime == null) {
+	public String marshal(Category category) throws Exception {
+		if(category == null) {
 			return null;
 		}
 		
-		return dateTime.toString();
+		return category.toString();
 	}
 }

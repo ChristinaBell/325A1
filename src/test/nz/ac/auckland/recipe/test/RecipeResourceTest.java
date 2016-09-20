@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RecipeResourceTest {
 	
-	private static String WEB_SERVICE_URI = "http://localhost:10000/services/recipes";
+	private static String WEB_SERVICE_URI = "http://localhost:10000/services/recipeBlogs";
 
 	private Logger _logger = LoggerFactory.getLogger(RecipeResourceTest.class);
 
@@ -42,6 +42,17 @@ public class RecipeResourceTest {
 			_logger.info("Creating Recipes ...");
 
 			// An array of XML strings, describing recipes.
+			//MARSHALLING FIXES THIS 
+			
+			// StringWriter 
+			marshaller.marshal(recipe, stringWriter); 
+			String xml = stringWriter.toString(); 
+			
+			Response response = client.target(WEB_SERVICE_URI, "/recipe").request().post(Entity.xml(xmlString)); 
+			
+			
+			Status st = response.getStatus(); 
+			
 			String[] xmlPayloads = {
 					"<recipe>" 
 							+ "<id>1111</id>"

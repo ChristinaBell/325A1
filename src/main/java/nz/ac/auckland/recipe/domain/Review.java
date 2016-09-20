@@ -1,19 +1,21 @@
 package nz.ac.auckland.recipe.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import nz.ac.auckland.recipe.domain.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+@SuppressWarnings("serial")
 @Embeddable 
 @Access(AccessType.FIELD)
 @XmlRootElement(name="review")
-public class Review {
-	
-	@Id
-	private Long _id; 
+public class Review implements Serializable {
+ 
 
 	@Column(nullable=false, name="CONTENT")
 	private String _content; 
@@ -22,20 +24,17 @@ public class Review {
 		
 	}
 	
-	public void setId(Long id){
-		_id = id; 
+	public Review(String reviewAsString) {
+		// TODO Auto-generated constructor stub
 	}
-	
-	public Long getId(){
-		return _id; 
-	}
+
 	
 	public String getContent(){
 		return _content; 
 	}
 	
 	public void setContent(String content){
-		return _content; 
+		_content = content; 
 	}
 	
 		

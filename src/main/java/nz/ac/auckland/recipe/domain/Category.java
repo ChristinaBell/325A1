@@ -1,13 +1,15 @@
 package nz.ac.auckland.recipe.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 
+@SuppressWarnings("serial")
 @Entity
 @Access(AccessType.FIELD)
-public class Category {
+public class Category implements Serializable {
 	
 	@Id
 	@XmlAttribute(name="id")
@@ -19,8 +21,15 @@ public class Category {
 	@OneToMany(mappedBy="_category")
 	@XmlAttribute(name="recipes")
 	private Set<Recipe> _recipes;
-
 	
+	protected Category(){
+		
+	}
+
+	public Category(String categoryAsString) {
+		_categoryName = categoryAsString; 
+	}
+
 	public void setId(Long id){
 		_id = id; 
 	}
@@ -45,9 +54,9 @@ public class Category {
 		return _recipes; 
 	}
 	
-	@Override 
-	public String toString(){
-		return _id.toString() + "-" + _categoryName 
-	}
+//	@Override 
+//	public String toString(){
+//		return _id.toString() + "-" + _categoryName ; 
+//	}
 	
 }

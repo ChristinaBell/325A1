@@ -2,6 +2,8 @@ package nz.ac.auckland.recipe.jaxb;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import nz.ac.auckland.recipe.domain.Baker;
+
 import org.joda.time.DateTime;
 
 /**
@@ -10,23 +12,23 @@ import org.joda.time.DateTime;
  * DateTime instances.
  *
  */
-public class WishlistAdapter extends XmlAdapter<String, Wishlist> {
+public class BakerAdapter extends XmlAdapter<String, Baker> {
 
 	@Override
-	public Wishlist unmarshal(String wishlistAsString) throws Exception {
-		if(wishlistAsString == null) {
+	public Baker unmarshal(String bakerAsString) throws Exception {
+		if(bakerAsString == null) {
 			return null;
 		}
 		
-		return new Wishlist(wishlistAsString);
+		return new Baker(bakerAsString);
 	}
 
 	@Override
-	public String marshal(Wishlist wishlist) throws Exception {
-		if(wishlist == null) {
+	public String marshal(Baker baker) throws Exception {
+		if(baker == null) {
 			return null;
 		}
 		
-		return wishlist.toString();
+		return baker.toString();
 	}
 }

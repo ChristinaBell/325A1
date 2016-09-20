@@ -1,29 +1,30 @@
 package nz.ac.auckland.recipe.domain;
 
-import BakerAdapter;
-import XmlJavaTypeAdapter;
+import nz.ac.auckland.recipe.jaxb.*;
 
-import org.joda.time.DateTime;
-
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
+@SuppressWarnings("serial")
 @Entity
 @XmlRootElement(name="recipe")
 @Access(AccessType.FIELD)
-public class Recipe {
+public class Recipe implements Serializable {
 	@Id
 	@XmlAttribute(name="id")
 	private Long _id; 
+	
 	@XmlAttribute(name="name")
 	private String _name; 
+	
 	@XmlAttribute(name="content")
 	private String _content; 
-	@XmlAttribute(name="creation-time-stamp")
-	private DateTime _creationTimeStamp; 
 	
 	@ManyToOne 
 	@XmlAttribute(name="author")
@@ -34,7 +35,7 @@ public class Recipe {
 	@XmlAttribute(name="category")
 	@XmlJavaTypeAdapter(value=CategoryAdapter.class)
 	@JoinTable(name="RECIPE CATEGORY", joinColumns =
-		@JoinColumn( name="RECIPE ID" ), inverseJoinColumns = 
+		@JoinColumn( name="RECIPE_ID" ), inverseJoinColumns = 
 			@JoinColumn( nullable=false ))
 	private Category _category; 
 	
@@ -46,6 +47,10 @@ public class Recipe {
 	// Does this need to be protected for JPA? 
 	public Recipe(){}
 	 	
+	public Recipe(String recipeAsString) {
+		_name = recipeAsString; 
+	}
+
 	public Long getId(){
 		return _id; 
 	}
@@ -62,7 +67,7 @@ public class Recipe {
 		return _name;
 	}
 	
-	public void setContent(String name){
+	public void setName(String name){
 		_name = name; 
 	}
 	
@@ -72,14 +77,6 @@ public class Recipe {
 	
 	public void setContent(String content){
 		_content = content; 
-	}
-	
-	public DateTime getCreationTimeStamp(){
-		return _creationTimeStamp; 
-	}
-	
-	public void setCreationTimeStamp(DateTime timeStamp){
-		_creationTimeStamp = timeStamp; 
 	}
 	
 	public void setAuthor(Baker author){
@@ -108,7 +105,7 @@ public class Recipe {
 
 	@Override
 	public String toString(){
-		return _id + "-" + name + "-" + content + "-" + _category.toString() 
+		return _id + "-" + _name + "-" + _content + "-" + _category.toString() ;
 	}
 	
 	
