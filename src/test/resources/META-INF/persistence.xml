@@ -3,6 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
+	
+	<!-- author: Christina Bell cbel296 - Styled from persistence.xml in orm hello world example by Ian Warren  -->
 
 	<!-- The JPA specification can be accessed at: http://download.oracle.com/otndocs/jcp/persistence-2_1-fr-eval-spec/index.html 
 		Chapter 8 describes Persistent Unit configuration. Section 8.2.1.9 details 
@@ -14,10 +16,10 @@
 
 	<persistence-unit name="nz.ac.auckland.recipe">
 		<!-- Classes which are to be mapped and therefore persistent. -->
-		<class>nz.ac.auckland.recipe.domain.Recipe</class>
 		<class>nz.ac.auckland.recipe.domain.Baker</class>
+		<class>nz.ac.auckland.recipe.domain.Recipe</class>
 		<class>nz.ac.auckland.recipe.domain.category</class>
-	<!-- 	<class>nz.ac.auckland.recipe.domain.Wishlist</class> -->
+		<!-- <class>nz.ac.auckland.recipe.domain.Wishlist</class> -->
 
 		<properties>
 			<!-- Configure the data source. In this case the embedded H2 database 

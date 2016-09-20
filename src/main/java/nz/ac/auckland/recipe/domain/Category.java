@@ -5,6 +5,20 @@ import java.util.Set;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+/**
+ * 
+ * @author Christina Bell - cbel296 
+ * 
+ * This class represents the "Category" object in the web server.  
+ * 
+ * My web server represents a online service where users - called Bakers, can create and post recipes.  
+ * Other users can then review these recipes.  Recipes also have categories.  
+ * 
+ * The category object defines a category of recipes. Categories have an id and a name 
+ *
+ */
 
 @SuppressWarnings("serial")
 @Entity
@@ -15,11 +29,11 @@ public class Category implements Serializable {
 	@XmlAttribute(name="id")
 	private Long _id; 
 	
-	@XmlAttribute(name="category-name")
+	@XmlElement(name="category-name")
 	private String _categoryName;
 	
 	@OneToMany(mappedBy="_category")
-	@XmlAttribute(name="recipes")
+	@XmlElement(name="recipes")
 	private Set<Recipe> _recipes;
 	
 	protected Category(){
@@ -54,9 +68,9 @@ public class Category implements Serializable {
 		return _recipes; 
 	}
 	
-//	@Override 
-//	public String toString(){
-//		return _id.toString() + "-" + _categoryName ; 
-//	}
+	@Override 
+	public String toString(){
+		return _id.toString() + "," + _categoryName ; 
+	}
 	
 }

@@ -1,37 +1,33 @@
 package nz.ac.auckland.recipe.dto;
 
-import java.util.Set;
-
-import javax.persistence.ElementCollection;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import nz.ac.auckland.recipe.domain.*;
-import nz.ac.auckland.recipe.jaxb.*;
+import nz.ac.auckland.recipe.domain.Review;
+import nz.ac.auckland.recipe.jaxb.BakerAdapter;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
-/* Class to represent a Parolee. 
+/* Class to represent a Recipe. 
  * 
- * An instance of this class represents a DTO Parolee. A DTO Parolee includes
- * a subset of Parolee data, and DTO Parolees objects are exchanged between 
- * clients and the Parolee Web service.
+ * An instance of this class represents a DTO Recipe. A DTO Recipe includes
+ * a subset of the Recipe data - so that it is simplified, and DTO Recipe objects are 
+ * exchanged between clients and the Recipe Web service.
  * 
- * A DTO Parolee is described by:
- * - Personal details: lastname, firstname, gender, date-of-birth, home address;
- * - Curfew: any constraints on the Parolee's location;
- * - Criminal profile: criminal history of the Parolee;
- * - Last know location: timestamped latitude/longitude position.
+ * A DTO Recipe is described by:
+ * - name of the recipe
+ * - content of the recipe
+ * - the author of the recipe
+ * - the category of the recipe 
+ * - the most recent review of the recipe 
  * 
- * A Parolee is uniquely identified by an id value of type long.
+ * A Recipe is uniquely identified by an id value of type long.
  * 
  */
 @XmlRootElement(name="recipe")
@@ -47,20 +43,17 @@ public class Recipe {
 	@XmlElement(name="content")
 	private String _content;
 	
-	@XmlAttribute(name="creation-time-stamp")
-	private DateTime _creationTimeStamp; 
-	
 	@XmlAttribute(name="author")
-	@XmlJavaTypeAdapter(value=BakerAdapter.class)
+//	@XmlJavaTypeAdapter(value=BakerAdapter.class)
 	private Baker _author; 
 	
-	@XmlAttribute(name="category")
+	@XmlElement(name="categoryName")
 //	@XmlJavaTypeAdapter(value=CategoryAdapter.class)
-	private Category _category; 
+	private Category _categoryName; 
 	
 //	@XmlJavaTypeAdapter(value=ReviewAdapter.class)
-	@XmlAttribute(name="reviews")
-	private Set<Review> _reviews; 
+	@XmlElement(name="most-recent-review")
+	private Review _mostRecentReview; 
 	
 	protected Recipe() {
 		
@@ -77,11 +70,9 @@ public class Recipe {
 	 */
 	public Recipe(String name,
 			String content,
-			Baker author,
+			nz.ac.auckland.recipe.domain.Baker author,
 			Category category) throws IllegalArgumentException {
-		this(0,name,content,null, author,category,null);
-		
-
+		this(0,name,content, author,category,null);
 	}
 	
 	/**
@@ -93,20 +84,20 @@ public class Recipe {
 	public Recipe(long id,
 			String name,
 			String content,
-			DateTime creationTimeStamp, 
-			Baker author,
+			Baker baker,
 			Category category,
-			Set<Review> reviews
+			Review review
 			) {
 		
 		_id = id;
 		_name = name;
 		_content = content;
-		_author = author;
-		_category = category;
-		_reviews = reviews; 
+		_author = baker;
+		_categoryName = category;
+		_mostRecentReview = review; 
 	}
 	
+
 	public long getId() {
 		return _id;
 	}
@@ -137,20 +128,21 @@ public class Recipe {
 	}
 	
 	public void setCategory(Category category){
-		_category = category; 
+		_categoryName = category; 
 	}
 
 	public Category getCategory(){
-		return _category; 
+		return _categoryName; 
 	}
 	
-	public void setReviews(Set<Review> reviews){
-		_reviews = reviews; 
+	public void setReviews(Review review){
+		_mostRecentReview = review; 
 	}
 	
-	public Set<Review> getReviews(){
-		return _reviews; 
+	public Review getReviews(){
+		return _mostRecentReview; 
 	}
+
 	
 	@Override
 	public String toString() {
@@ -168,16 +160,16 @@ public class Recipe {
 		}
 		buffer.append("; ");
 		if(_author != null) {
-			buffer.append(_author.toString());
+			buffer.append(_author.getId());
 		}
 		buffer.append("; ");
 		
-		if(_category != null) {
-			buffer.append((_category.toString()));
+		if(_categoryName != null) {
+			buffer.append((_categoryName.getId()));
 		}
 		buffer.append("; ");
-		if(_reviews != null) {
-			buffer.append(_reviews);
+		if(_mostRecentReview != null) {
+			buffer.append(_mostRecentReview);
 		}
 		buffer.append("; ");
 				
@@ -200,8 +192,8 @@ public class Recipe {
             append(_name, rhs._name).
             append(_content, rhs._content).
             append(_author, rhs._author).
-            append(_category, rhs._category).
-            append(_reviews, rhs._reviews).
+            append(_categoryName, rhs._categoryName).
+            append(_mostRecentReview, rhs._mostRecentReview).
             isEquals();
 	}
 	
@@ -212,8 +204,8 @@ public class Recipe {
 	            append(_name).
 	            append(_content).
 	            append(_author).
-	            append(_category).
-	            append(_reviews).
+	            append(_categoryName).
+	            append(_mostRecentReview).
 	            toHashCode();
 	}
 }
