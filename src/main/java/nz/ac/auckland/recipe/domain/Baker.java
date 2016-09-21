@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.persistence.*;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import nz.ac.auckland.recipe.domain.*;
 import nz.ac.auckland.recipe.jaxb.*;
 
@@ -37,16 +39,12 @@ public class Baker implements Serializable{
 	@XmlElement(name="username")
 	private String _username;
 	
-	@XmlElement(name="recipes")
-	@XmlJavaTypeAdapter(value=RecipeAdapter.class)
+	@XmlElement(name="baker-recipes")
 	@OneToMany(mappedBy = "_author")
-	private Set<Recipe> _recipes; 
-	
-//	@XmlElement(name="wishlist")
-//	@XmlJavaTypeAdapter(value=WishlistAdapter.class)
-//	@OneToOne
-//	private Wishlist _wishlist;  
+	private Set<Recipe> _recipes;  
 		
+	//Constructors 
+	
 	public Baker(String username, String lastname, String firstname, Set<Recipe> recipes) {
 		_username = username;
 		_recipes = recipes; 
@@ -61,6 +59,9 @@ public class Baker implements Serializable{
 	}
 	
 	public Baker() {}
+	
+	
+	// Getters and setters  
 	
 	public Long getId() {
 		return _id; 
@@ -86,6 +87,14 @@ public class Baker implements Serializable{
 		} else {
 			return false; 
 		}
+	}
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 31). 
+	            append(_id).
+	            append(_username).
+	            toHashCode();
 	}
 	
 	

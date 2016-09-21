@@ -10,6 +10,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import nz.ac.auckland.recipe.dto.Recipe;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 /**
  * 
  * @author Christina Bell - cbel296 
@@ -26,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @SuppressWarnings("serial")
 @Embeddable 
 @Access(AccessType.FIELD)
+@XmlRootElement(name="review")
 public class Review implements Serializable {
  
 	@Column(nullable=false, name="CONTENT")
@@ -47,6 +53,26 @@ public class Review implements Serializable {
 	
 	public void setContent(String content){
 		_content = content; 
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Recipe))
+            return false;
+        if (obj == this)
+            return true;
+
+        Recipe rhs = (Recipe) obj;
+        return new EqualsBuilder().
+            append(_content, rhs.getContent()).
+            isEquals();
+	}
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 31). 
+	            append(_content).
+	            toHashCode();
 	}
 	
 		

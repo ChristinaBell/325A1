@@ -11,9 +11,11 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 /**
  * 
@@ -31,8 +33,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 //@SuppressWarnings("serial")
 @Entity
-//@XmlRootElement(name="recipe")
+@XmlRootElement(name="recipe")
 @Access(AccessType.FIELD)
+@XmlType(name="recipe_domain")
 public class Recipe implements Serializable {
 	@Id
 //	@XmlAttribute(name="id")
@@ -188,6 +191,18 @@ public class Recipe implements Serializable {
 			_reviews.add(review); 
 		}
 		
+	}
+	
+	@Override 
+	public boolean equals(Object obj){
+		if (!(obj instanceof Recipe)){
+			return false; 
+		}
+		if (obj == this){
+			return true; 
+		}
+		Recipe other = (Recipe)obj; 
+		return _id == other.getId(); 
 	}
 	
 	@Override

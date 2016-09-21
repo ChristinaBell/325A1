@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
 
 /**
  * 
@@ -16,11 +17,11 @@ import javax.xml.bind.annotation.XmlElement;
  * My web server represents a online service where users - called Bakers, can create and post recipes.  
  * Other users can then review these recipes.  Recipes also have categories.  
  * 
- * The category object defines a category of recipes. Categories have an id and a name 
+ * The category object defines a category of recipes. Categories are an enum type 
  *
  */
 
-
+@XmlEnum(String.class)
 public enum Category {
 	
 	CAKES, BISCUITS, BREAD, MUFFINS, SAVORY, SLICE; 

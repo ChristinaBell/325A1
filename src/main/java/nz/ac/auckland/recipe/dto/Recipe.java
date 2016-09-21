@@ -9,7 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import nz.ac.auckland.recipe.domain.*;
+import nz.ac.auckland.recipe.domain.Baker;
+import nz.ac.auckland.recipe.domain.Category;
 import nz.ac.auckland.recipe.domain.Review;
 import nz.ac.auckland.recipe.jaxb.BakerAdapter;
 
@@ -32,9 +33,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * A Recipe is uniquely identified by an id value of type long.
  * 
  */
-@XmlRootElement(name="recipe")
+@XmlRootElement(name="recipe_dto")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DtoRecipe {
+public class Recipe {
 	
 	@XmlAttribute(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -58,7 +59,7 @@ public class DtoRecipe {
 	@XmlElement(name="most-recent-review")
 	private Review _mostRecentReview; 
 	
-	protected DtoRecipe() {
+	protected Recipe() {
 		
 	}
 	
@@ -71,7 +72,7 @@ public class DtoRecipe {
 	 * which is optional (not all Parolees are subject to a curfew).
      *
 	 */
-	public DtoRecipe(String name,
+	public Recipe(String name,
 			String content,
 			nz.ac.auckland.recipe.domain.Baker author,
 			Category category) throws IllegalArgumentException {
@@ -84,7 +85,7 @@ public class DtoRecipe {
 	 * implementation when creating a DTO Parolee from a domain-model Parolee 
 	 * object.
 	 */
-	public DtoRecipe(long id,
+	public Recipe(long id,
 			String name,
 			String content,
 			Baker baker,
@@ -184,12 +185,12 @@ public class DtoRecipe {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof DtoRecipe))
+		if (!(obj instanceof Recipe))
             return false;
         if (obj == this)
             return true;
 
-        DtoRecipe rhs = (DtoRecipe) obj;
+        Recipe rhs = (Recipe) obj;
         return new EqualsBuilder().
             append(_id, rhs._id).
             append(_name, rhs._name).
