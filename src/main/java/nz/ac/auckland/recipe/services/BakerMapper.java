@@ -12,7 +12,7 @@ import nz.ac.auckland.recipe.dto.*;
  */
 public class BakerMapper {
 
-	static Recipe toDomainModel(nz.ac.auckland.recipe.dto.Recipe dtoRecipe) {
+	static Recipe toDomainModel(nz.ac.auckland.recipe.dto.DtoRecipe dtoRecipe) {
 		Recipe fullParolee = new Recipe(
 				dtoRecipe.getId(), 
 				dtoRecipe.getName(),
@@ -23,9 +23,9 @@ public class BakerMapper {
 		return fullParolee;
 	}
 	
-	static nz.ac.auckland.recipe.dto.Recipe toDto(Recipe recipe) {
-		nz.ac.auckland.recipe.dto.Recipe dtoParolee = 
-				new nz.ac.auckland.recipe.dto.Recipe(
+	static nz.ac.auckland.recipe.dto.DtoRecipe toDto(Recipe recipe) {
+		nz.ac.auckland.recipe.dto.DtoRecipe dtoParolee = 
+				new nz.ac.auckland.recipe.dto.DtoRecipe(
 						recipe.getId(),
 						recipe.getName(),
 						recipe.getContent(),

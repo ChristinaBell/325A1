@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Review implements Serializable {
  
 	@Column(nullable=false, name="CONTENT")
-	@XmlElement(name="id")
+	@XmlElement(name="content")
 	private String _content; 
 	
 	protected Review(){

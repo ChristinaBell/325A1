@@ -84,14 +84,14 @@ public class RecipeResource {
 	@GET
 	@Path("/recipes/{id}")
 	@Produces("application/xml")
-	public nz.ac.auckland.recipe.dto.Recipe retrieveRecipe(
+	public nz.ac.auckland.recipe.dto.DtoRecipe retrieveRecipe(
 			@PathParam("id") Long id) {
 		_logger.info("Retrieving recipe with id: " + id);
 		EntityManager em = PersistenceManager.instance().createEntityManager();
 		// Lookup the Recipe with the entity manager.
 		final Recipe recipe = em.find(Recipe.class, id);
 		em.close();
-		nz.ac.auckland.recipe.dto.Recipe dtoRecipe = RecipeMapper.toDto(recipe);
+		nz.ac.auckland.recipe.dto.DtoRecipe dtoRecipe = RecipeMapper.toDto(recipe);
 		return dtoRecipe;
 
 	}
@@ -109,7 +109,7 @@ public class RecipeResource {
 	 */
 	@POST
 	@Produces("application/xml")
-	public Response createRecipe(nz.ac.auckland.recipe.dto.Recipe dtoRecipe) {
+	public Response createRecipe(nz.ac.auckland.recipe.dto.DtoRecipe dtoRecipe) {
 		// Read an XML representation of a new Recipe. Note that with JAX-RS,
 		// any non-annotated parameter in a Resource method is assumed to hold
 		// the HTTP request's message body.
@@ -142,7 +142,7 @@ public class RecipeResource {
 	@PUT
 	@Path("/recipes/{id}")
 	@Consumes("application/xml")
-	public void updateRecipe(nz.ac.auckland.recipe.dto.Recipe dtoRecipe) {
+	public void updateRecipe(nz.ac.auckland.recipe.dto.DtoRecipe dtoRecipe) {
 		Recipe recipe = RecipeMapper.toDomainModel(dtoRecipe);
 		// Update the details of the Recipe to be updated.
 		recipe.setAuthor(dtoRecipe.getAuthor());
@@ -163,7 +163,7 @@ public class RecipeResource {
 	 */
 	@DELETE
 	@Path("/recipes/{id}")
-	public void deleteRecipe(nz.ac.auckland.recipe.dto.Recipe dtoRecipe) {
+	public void deleteRecipe(nz.ac.auckland.recipe.dto.DtoRecipe dtoRecipe) {
 		Recipe recipe = RecipeMapper.toDomainModel(dtoRecipe);
 		EntityManager em = PersistenceManager.instance().createEntityManager();
 		EntityTransaction trans = em.getTransaction();

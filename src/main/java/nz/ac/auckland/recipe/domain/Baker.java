@@ -31,6 +31,7 @@ public class Baker implements Serializable{
 	
 	@Id
 	@XmlAttribute(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long _id;
 	
 	@XmlElement(name="username")

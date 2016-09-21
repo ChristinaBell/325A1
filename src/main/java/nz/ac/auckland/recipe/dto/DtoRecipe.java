@@ -1,5 +1,7 @@
 package nz.ac.auckland.recipe.dto;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -32,9 +34,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 @XmlRootElement(name="recipe")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Recipe {
+public class DtoRecipe {
 	
 	@XmlAttribute(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long _id;
 	
 	@XmlElement(name="name")
@@ -43,7 +46,7 @@ public class Recipe {
 	@XmlElement(name="content")
 	private String _content;
 	
-	@XmlAttribute(name="author")
+	@XmlElement(name="author")
 //	@XmlJavaTypeAdapter(value=BakerAdapter.class)
 	private Baker _author; 
 	
@@ -55,7 +58,7 @@ public class Recipe {
 	@XmlElement(name="most-recent-review")
 	private Review _mostRecentReview; 
 	
-	protected Recipe() {
+	protected DtoRecipe() {
 		
 	}
 	
@@ -68,7 +71,7 @@ public class Recipe {
 	 * which is optional (not all Parolees are subject to a curfew).
      *
 	 */
-	public Recipe(String name,
+	public DtoRecipe(String name,
 			String content,
 			nz.ac.auckland.recipe.domain.Baker author,
 			Category category) throws IllegalArgumentException {
@@ -81,7 +84,7 @@ public class Recipe {
 	 * implementation when creating a DTO Parolee from a domain-model Parolee 
 	 * object.
 	 */
-	public Recipe(long id,
+	public DtoRecipe(long id,
 			String name,
 			String content,
 			Baker baker,
@@ -165,7 +168,7 @@ public class Recipe {
 		buffer.append("; ");
 		
 		if(_categoryName != null) {
-			buffer.append((_categoryName.getId()));
+			buffer.append((_categoryName));
 		}
 		buffer.append("; ");
 		if(_mostRecentReview != null) {
@@ -181,12 +184,12 @@ public class Recipe {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Recipe))
+		if (!(obj instanceof DtoRecipe))
             return false;
         if (obj == this)
             return true;
 
-        Recipe rhs = (Recipe) obj;
+        DtoRecipe rhs = (DtoRecipe) obj;
         return new EqualsBuilder().
             append(_id, rhs._id).
             append(_name, rhs._name).

@@ -20,57 +20,24 @@ import javax.xml.bind.annotation.XmlElement;
  *
  */
 
-@SuppressWarnings("serial")
-@Entity
-@Access(AccessType.FIELD)
-public class Category implements Serializable {
-	
-	@Id
-	@XmlAttribute(name="id")
-	private Long _id; 
-	
-	@XmlElement(name="category-name")
-	private String _categoryName;
-	
-	@OneToMany(mappedBy="_category")
-	@XmlElement(name="recipes")
-	private Set<Recipe> _recipes;
-	
-	protected Category(){
-		
-	}
 
-	public Category(String categoryAsString) {
-		_categoryName = categoryAsString; 
-	}
-
-	public void setId(Long id){
-		_id = id; 
-	}
+public enum Category {
 	
-	public Long getId(){
-		return _id; 
-	}
+	CAKES, BISCUITS, BREAD, MUFFINS, SAVORY, SLICE; 
 	
-	public void setCategoryName(String name){
-		_categoryName = name; 
-	}
+	/**
+	 * Return a Gender value that corresponds to a String value.
+	 */
+	public static Category fromString(String text) {
+	    if (text != null) {
+	      for (Category c : Category.values()) {
+	        if (text.equalsIgnoreCase(c.toString())) {
+	          return c;
+	        }
+	      }
+	    }
+	    return null;
+	  }
 	
-	public String getCategoryName(){
-		return _categoryName; 
-	}
-	
-	public void setRecipes(Set<Recipe> recipes){
-		_recipes = recipes; 
-	}
-	
-	public Set<Recipe> getRecipes(){
-		return _recipes; 
-	}
-	
-	@Override 
-	public String toString(){
-		return _id.toString() + "," + _categoryName ; 
-	}
 	
 }

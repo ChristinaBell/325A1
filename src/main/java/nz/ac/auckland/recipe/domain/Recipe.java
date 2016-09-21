@@ -36,6 +36,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class Recipe implements Serializable {
 	@Id
 //	@XmlAttribute(name="id")
+	
 	private Long _id; 
 	
 //	@XmlAttribute(name="name")
@@ -49,12 +50,6 @@ public class Recipe implements Serializable {
 //	@XmlJavaTypeAdapter(value=BakerAdapter.class)
 	private Baker _author; 
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-//	@XmlAttribute(name="category")
-//	@XmlJavaTypeAdapter(value=CategoryAdapter.class)
-	@JoinTable(name="RECIPE_CATEGORY", joinColumns =
-		@JoinColumn( name="RECIPE_ID" ), inverseJoinColumns = 
-			@JoinColumn( nullable=false ))
 	private Category _category; 
 	
 	@ElementCollection
@@ -165,7 +160,7 @@ public class Recipe implements Serializable {
 		
 		
 		if(_category != null) {
-			buffer.append((_category.getId()));
+			buffer.append((_category));
 			buffer.append("; ");
 		}
 		
